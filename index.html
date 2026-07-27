@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación Cultura Organizacional | SKECHERS</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<div class="pista" aria-hidden="true"></div>
+
+<!-- PANTALLA DE INICIO -->
+<section id="inicio">
+  <div class="card">
+
+    <img id="logoEmpresa" src="assets/logo.png" alt="Logo Skechers">
+
+    <span class="eyebrow">Programa de inducción</span>
+    <h1>Evaluación de Cultura Organizacional</h1>
+    <h2>SKECHERS</h2>
+
+    <p class="descripcion">
+      Esta evaluación mide tus conocimientos sobre 8 pilares de nuestra cultura.
+      Responde con calma: después de cada pregunta te explicamos la respuesta correcta.
+    </p>
+
+    <div class="lista">
+      <div><span class="check">✓</span>Cultura Organizacional</div>
+      <div><span class="check">✓</span>Misión</div>
+      <div><span class="check">✓</span>Visión</div>
+      <div><span class="check">✓</span>Competencias Esenciales</div>
+      <div><span class="check">✓</span>Atributos de Marca</div>
+      <div><span class="check">✓</span>Magia con una Sonrisa</div>
+      <div><span class="check">✓</span>Seguridad</div>
+      <div><span class="check">✓</span>Atención al Cliente</div>
+    </div>
+
+    <div class="campo">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" placeholder="Ej. Ana Torres">
+    </div>
+
+    <div class="campo">
+      <label for="cm">CM</label>
+      <input type="text" id="cm" placeholder="Ej. CM-0452">
+    </div>
+
+    <button id="btnComenzar" class="btnPrimario">🚀 Comenzar evaluación</button>
+    <p class="nota">12 preguntas · tiempo total 10:00</p>
+
+  </div>
+</section>
+
+<!-- EVALUACIÓN -->
+<section id="quiz" style="display:none;">
+  <div class="cardPregunta">
+
+    <header>
+      <div class="dorsal">
+        <span class="dorsal-label">Pregunta</span>
+        <span id="contador">01<span class="dorsal-total">/12</span></span>
+      </div>
+      <span id="categoriaActual" class="chip">Categoría</span>
+      <div id="cronometro">10:00</div>
+    </header>
+
+    <div class="pistaProgreso" id="barra"></div>
+
+    <h2 id="pregunta">Pregunta</h2>
+
+    <div id="respuestas"></div>
+
+    <div id="feedback" class="feedback" style="display:none;">
+      <p id="feedbackTitulo"></p>
+      <p id="feedbackTexto"></p>
+    </div>
+
+    <button id="btnSiguiente" class="btnPrimario">Comprobar respuesta</button>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="resultado" style="display:none;">
+  <div class="card">
+
+    <img src="assets/trofeo.png" class="trofeo" alt="Trofeo">
+
+    <h1>Evaluación finalizada</h1>
+
+    <div id="porcentaje">100%</div>
+    <h2 id="mensaje">Excelente trabajo</h2>
+    <p id="detalle"></p>
+
+    <div class="desglose" id="desglose"></div>
+
+    <button onclick="location.reload()" class="btnPrimario">Realizar nuevamente</button>
+  </div>
+</section>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
