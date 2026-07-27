@@ -1,0 +1,468 @@
+/* ============================================
+   TOKENS
+   ============================================ */
+:root{
+  --navy-950:#071427;
+  --navy-800:#0F2A4A;
+  --navy-700:#153a63;
+  --blue-500:#2F6FED;
+  --gold-400:#FFC107;
+  --mint-400:#00D9A3;
+  --coral-500:#FF5470;
+  --fog-100:#F4F6FA;
+  --fog-300:#c3cfe0;
+
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+
+  --radius:20px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  min-height:100vh;
+  font-family:var(--font-body);
+  color:var(--fog-100);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(47,111,237,.25), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(0,217,163,.15), transparent 45%),
+    linear-gradient(180deg, var(--navy-950), var(--navy-800));
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  overflow-x:hidden;
+}
+
+/* Textura de fondo tipo carriles de pista */
+.pista{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:repeating-linear-gradient(
+    100deg,
+    transparent 0px,
+    transparent 120px,
+    rgba(255,255,255,.035) 120px,
+    rgba(255,255,255,.035) 124px
+  );
+}
+
+section{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ============================================
+   TARJETAS
+   ============================================ */
+.card, .cardPregunta{
+  width:100%;
+  max-width:760px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);
+  padding:44px;
+  box-shadow:0 25px 60px rgba(0,0,0,.35);
+  animation:aparecer .6s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes aparecer{
+  from{opacity:0; transform:translateY(24px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+#logoEmpresa{
+  display:block;
+  margin:0 auto 18px;
+  width:180px;
+}
+
+.eyebrow{
+  display:block;
+  text-align:center;
+  font-family:var(--font-mono);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:12px;
+  color:var(--gold-400);
+  margin-bottom:10px;
+}
+
+h1{
+  font-family:var(--font-display);
+  text-align:center;
+  font-size:34px;
+  font-weight:700;
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+}
+
+h2{
+  font-family:var(--font-display);
+  text-align:center;
+  font-weight:600;
+  color:var(--fog-300);
+  margin-bottom:20px;
+}
+
+.descripcion{
+  text-align:center;
+  font-size:15.5px;
+  line-height:1.55;
+  color:var(--fog-300);
+  max-width:520px;
+  margin:0 auto 26px;
+}
+
+.lista{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:28px;
+}
+
+.lista div{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:14.5px;
+}
+
+.check{
+  color:var(--mint-400);
+  font-weight:700;
+}
+
+.campo{margin-top:16px;}
+
+.campo label{
+  display:block;
+  font-size:12.5px;
+  color:var(--fog-300);
+  margin-bottom:6px;
+  font-family:var(--font-mono);
+}
+
+input{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  font-size:16px;
+  background:rgba(255,255,255,.92);
+  color:var(--navy-950);
+  font-family:var(--font-body);
+}
+
+input:focus{
+  outline:3px solid var(--blue-500);
+  outline-offset:1px;
+}
+
+.nota{
+  text-align:center;
+  font-size:12.5px;
+  color:var(--fog-300);
+  margin-top:14px;
+  font-family:var(--font-mono);
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+.btnPrimario{
+  width:100%;
+  margin-top:22px;
+  padding:16px;
+  font-size:16.5px;
+  font-weight:700;
+  font-family:var(--font-display);
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg, var(--blue-500), #1e4fc4);
+  color:white;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.btnPrimario:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(47,111,237,.4);
+}
+
+.btnPrimario:focus-visible{
+  outline:3px solid var(--gold-400);
+  outline-offset:2px;
+}
+
+/* ============================================
+   QUIZ HEADER — dorsal de corredor
+   ============================================ */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+
+.dorsal{
+  position:relative;
+  background:var(--fog-100);
+  color:var(--navy-950);
+  padding:10px 18px;
+  border-radius:10px;
+  font-family:var(--font-mono);
+  font-weight:700;
+  line-height:1;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+}
+
+.dorsal::before, .dorsal::after{
+  content:"";
+  position:absolute;
+  top:-5px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--navy-950);
+  opacity:.6;
+}
+.dorsal::before{left:8px;}
+.dorsal::after{right:8px;}
+
+.dorsal-label{
+  display:block;
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.6;
+  margin-bottom:2px;
+}
+
+#contador{font-size:20px;}
+.dorsal-total{font-size:13px; opacity:.5; margin-left:2px;}
+
+.chip{
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  background:rgba(255,193,7,.15);
+  color:var(--gold-400);
+  border:1px solid rgba(255,193,7,.35);
+  padding:8px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+#cronometro{
+  background:var(--navy-950);
+  color:var(--mint-400);
+  font-family:var(--font-mono);
+  font-weight:700;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:18px;
+  border:1px solid rgba(0,217,163,.3);
+}
+
+#cronometro.alerta{
+  color:var(--coral-500);
+  border-color:rgba(255,84,112,.4);
+}
+
+/* ============================================
+   BARRA DE PROGRESO — "carril"
+   ============================================ */
+.pistaProgreso{
+  display:flex;
+  gap:5px;
+  margin-bottom:28px;
+}
+
+.segmento{
+  flex:1;
+  height:8px;
+  border-radius:6px;
+  background:rgba(255,255,255,.14);
+  transition:.3s;
+}
+
+.segmento.correcta{background:var(--mint-400);}
+.segmento.incorrecta{background:var(--coral-500);}
+.segmento.actual{background:var(--gold-400);}
+
+/* ============================================
+   PREGUNTA / RESPUESTAS
+   ============================================ */
+#pregunta{
+  font-family:var(--font-display);
+  font-size:23px;
+  font-weight:600;
+  line-height:1.4;
+  margin-bottom:22px;
+}
+
+.opcion{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.16);
+  color:var(--fog-100);
+  padding:15px 18px;
+  margin-top:12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15.5px;
+  font-family:var(--font-body);
+  transition:.2s;
+}
+
+.opcion:hover{
+  border-color:var(--blue-500);
+  background:rgba(47,111,237,.12);
+  transform:translateX(4px);
+}
+
+.opcion.seleccion{
+  border-color:var(--blue-500);
+  background:rgba(47,111,237,.22);
+}
+
+.opcion.correcta{
+  border-color:var(--mint-400);
+  background:rgba(0,217,163,.18);
+}
+
+.opcion.incorrecta{
+  border-color:var(--coral-500);
+  background:rgba(255,84,112,.18);
+}
+
+.opcion:disabled{cursor:default; transform:none;}
+
+#respuestaTexto{margin-top:4px;}
+
+/* ============================================
+   FEEDBACK DIDÁCTICO
+   ============================================ */
+.feedback{
+  margin-top:20px;
+  padding:16px 18px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.05);
+  animation:aparecer .35s ease;
+}
+
+.feedback.ok{border-color:rgba(0,217,163,.4); background:rgba(0,217,163,.1);}
+.feedback.mal{border-color:rgba(255,84,112,.4); background:rgba(255,84,112,.1);}
+
+#feedbackTitulo{
+  font-family:var(--font-display);
+  font-weight:700;
+  margin-bottom:6px;
+  font-size:15.5px;
+}
+
+#feedbackTexto{
+  font-size:14.5px;
+  line-height:1.5;
+  color:var(--fog-300);
+}
+
+/* ============================================
+   RESULTADOS
+   ============================================ */
+.trofeo{
+  width:96px;
+  display:block;
+  margin:0 auto 18px;
+}
+
+#porcentaje{
+  font-family:var(--font-display);
+  font-size:76px;
+  font-weight:700;
+  text-align:center;
+  margin:14px 0;
+  color:var(--mint-400);
+}
+
+#mensaje{color:var(--fog-100); margin-bottom:8px;}
+
+#detalle{
+  text-align:center;
+  color:var(--fog-300);
+  font-size:14.5px;
+  margin-bottom:24px;
+}
+
+.desglose{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.fila-desglose{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13.5px;
+}
+
+.fila-desglose .nombreCat{
+  width:170px;
+  flex-shrink:0;
+  color:var(--fog-300);
+  font-family:var(--font-mono);
+  font-size:12px;
+}
+
+.fila-desglose .track{
+  flex:1;
+  height:8px;
+  background:rgba(255,255,255,.12);
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.fila-desglose .relleno{
+  height:100%;
+  background:linear-gradient(90deg, var(--blue-500), var(--mint-400));
+  border-radius:6px;
+}
+
+.fila-desglose .valorCat{
+  width:38px;
+  text-align:right;
+  font-family:var(--font-mono);
+  color:var(--fog-300);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media(max-width:640px){
+  .lista{grid-template-columns:1fr;}
+  .card, .cardPregunta{padding:26px;}
+  h1{font-size:26px;}
+  #porcentaje{font-size:58px;}
+  header{gap:10px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
