@@ -5,7 +5,572 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Evaluación Cultura Organizacional | SKECHERS</title>
 
-<link rel="stylesheet" href="css/style.css">
+<style>
+/* ============================================
+   TOKENS
+   ============================================ */
+:root{
+  --navy-950:#071427;
+  --navy-800:#0F2A4A;
+  --navy-700:#153a63;
+  --blue-500:#2F6FED;
+  --gold-400:#FFC107;
+  --mint-400:#00D9A3;
+  --coral-500:#FF5470;
+  --fog-100:#F4F6FA;
+  --fog-300:#c3cfe0;
+
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+
+  --radius:20px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  min-height:100vh;
+  font-family:var(--font-body);
+  color:var(--fog-100);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(47,111,237,.25), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(0,217,163,.15), transparent 45%),
+    linear-gradient(180deg, var(--navy-950), var(--navy-800));
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  overflow-x:hidden;
+}
+
+/* Textura de fondo tipo carriles de pista */
+.pista{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:repeating-linear-gradient(
+    100deg,
+    transparent 0px,
+    transparent 120px,
+    rgba(255,255,255,.035) 120px,
+    rgba(255,255,255,.035) 124px
+  );
+}
+
+section{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ============================================
+   TARJETAS
+   ============================================ */
+.card, .cardPregunta{
+  width:100%;
+  max-width:760px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);
+  padding:44px;
+  box-shadow:0 25px 60px rgba(0,0,0,.35);
+  animation:aparecer .6s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes aparecer{
+  from{opacity:0; transform:translateY(24px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.marca{
+  display:flex;
+  justify-content:center;
+  margin-bottom:18px;
+}
+
+.marca-icono{
+  width:64px;
+  height:64px;
+  color:var(--gold-400);
+}
+
+.eyebrow{
+  display:block;
+  text-align:center;
+  font-family:var(--font-mono);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:12px;
+  color:var(--gold-400);
+  margin-bottom:10px;
+}
+
+h1{
+  font-family:var(--font-display);
+  text-align:center;
+  font-size:34px;
+  font-weight:700;
+  margin-bottom:6px;
+  letter-spacing:-.01em;
+}
+
+h2{
+  font-family:var(--font-display);
+  text-align:center;
+  font-weight:600;
+  color:var(--fog-300);
+  margin-bottom:20px;
+}
+
+.descripcion{
+  text-align:center;
+  font-size:15.5px;
+  line-height:1.55;
+  color:var(--fog-300);
+  max-width:520px;
+  margin:0 auto 26px;
+}
+
+.lista{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:28px;
+}
+
+.lista div{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:14.5px;
+}
+
+.check{
+  color:var(--mint-400);
+  font-weight:700;
+}
+
+.campo{margin-top:16px;}
+
+.campo label{
+  display:block;
+  font-size:12.5px;
+  color:var(--fog-300);
+  margin-bottom:6px;
+  font-family:var(--font-mono);
+}
+
+input{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  font-size:16px;
+  background:rgba(255,255,255,.92);
+  color:var(--navy-950);
+  font-family:var(--font-body);
+}
+
+input:focus{
+  outline:3px solid var(--blue-500);
+  outline-offset:1px;
+}
+
+.nota{
+  text-align:center;
+  font-size:12.5px;
+  color:var(--fog-300);
+  margin-top:14px;
+  font-family:var(--font-mono);
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+.btnPrimario{
+  width:100%;
+  margin-top:22px;
+  padding:16px;
+  font-size:16.5px;
+  font-weight:700;
+  font-family:var(--font-display);
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg, var(--blue-500), #1e4fc4);
+  color:white;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.btnPrimario:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(47,111,237,.4);
+}
+
+.btnPrimario:focus-visible{
+  outline:3px solid var(--gold-400);
+  outline-offset:2px;
+}
+
+.btnSecundario{
+  width:100%;
+  margin-top:12px;
+  padding:14px;
+  font-size:15px;
+  font-weight:600;
+  font-family:var(--font-display);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;
+  background:transparent;
+  color:var(--fog-100);
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.btnSecundario:hover{
+  border-color:var(--gold-400);
+  background:rgba(255,193,7,.08);
+}
+
+.btnSecundario:focus-visible{
+  outline:3px solid var(--gold-400);
+  outline-offset:2px;
+}
+
+/* ============================================
+   TOP EVALUADOS
+   ============================================ */
+.listaRanking{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:24px 0 6px;
+}
+
+.cargandoRanking{
+  text-align:center;
+  color:var(--fog-300);
+  font-size:14.5px;
+  padding:20px 0;
+}
+
+.filaRanking{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  padding:12px 16px;
+}
+
+.filaRanking:nth-child(1){border-color:rgba(255,193,7,.5); background:rgba(255,193,7,.08);}
+.filaRanking:nth-child(2){border-color:rgba(255,255,255,.3);}
+.filaRanking:nth-child(3){border-color:rgba(205,127,50,.5); background:rgba(205,127,50,.08);}
+
+.posicion{
+  width:34px;
+  flex-shrink:0;
+  text-align:center;
+  font-family:var(--font-mono);
+  font-weight:700;
+  font-size:16px;
+}
+
+.nombreRanking{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  font-size:14.5px;
+  font-weight:600;
+}
+
+.nombreRanking small{
+  font-weight:400;
+  font-family:var(--font-mono);
+  color:var(--fog-300);
+  font-size:11.5px;
+}
+
+.porcentajeRanking{
+  font-family:var(--font-mono);
+  font-weight:700;
+  color:var(--mint-400);
+  font-size:16px;
+}
+
+/* ============================================
+   QUIZ HEADER — dorsal de corredor
+   ============================================ */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+
+.dorsal{
+  position:relative;
+  background:var(--fog-100);
+  color:var(--navy-950);
+  padding:10px 18px;
+  border-radius:10px;
+  font-family:var(--font-mono);
+  font-weight:700;
+  line-height:1;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+}
+
+.dorsal::before, .dorsal::after{
+  content:"";
+  position:absolute;
+  top:-5px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--navy-950);
+  opacity:.6;
+}
+.dorsal::before{left:8px;}
+.dorsal::after{right:8px;}
+
+.dorsal-label{
+  display:block;
+  font-size:10px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  opacity:.6;
+  margin-bottom:2px;
+}
+
+#contador{font-size:20px;}
+.dorsal-total{font-size:13px; opacity:.5; margin-left:2px;}
+
+.chip{
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  background:rgba(255,193,7,.15);
+  color:var(--gold-400);
+  border:1px solid rgba(255,193,7,.35);
+  padding:8px 14px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+#cronometro{
+  background:var(--navy-950);
+  color:var(--mint-400);
+  font-family:var(--font-mono);
+  font-weight:700;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:18px;
+  border:1px solid rgba(0,217,163,.3);
+}
+
+#cronometro.alerta{
+  color:var(--coral-500);
+  border-color:rgba(255,84,112,.4);
+}
+
+/* ============================================
+   BARRA DE PROGRESO — "carril"
+   ============================================ */
+.pistaProgreso{
+  display:flex;
+  gap:5px;
+  margin-bottom:28px;
+}
+
+.segmento{
+  flex:1;
+  height:8px;
+  border-radius:6px;
+  background:rgba(255,255,255,.14);
+  transition:.3s;
+}
+
+.segmento.correcta{background:var(--mint-400);}
+.segmento.incorrecta{background:var(--coral-500);}
+.segmento.actual{background:var(--gold-400);}
+
+/* ============================================
+   PREGUNTA / RESPUESTAS
+   ============================================ */
+#pregunta{
+  font-family:var(--font-display);
+  font-size:23px;
+  font-weight:600;
+  line-height:1.4;
+  margin-bottom:22px;
+}
+
+.opcion{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.16);
+  color:var(--fog-100);
+  padding:15px 18px;
+  margin-top:12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15.5px;
+  font-family:var(--font-body);
+  transition:.2s;
+}
+
+.opcion:hover{
+  border-color:var(--blue-500);
+  background:rgba(47,111,237,.12);
+  transform:translateX(4px);
+}
+
+.opcion.seleccion{
+  border-color:var(--blue-500);
+  background:rgba(47,111,237,.22);
+}
+
+.opcion.correcta{
+  border-color:var(--mint-400);
+  background:rgba(0,217,163,.18);
+}
+
+.opcion.incorrecta{
+  border-color:var(--coral-500);
+  background:rgba(255,84,112,.18);
+}
+
+.opcion:disabled{cursor:default; transform:none;}
+
+#respuestaTexto{margin-top:4px;}
+
+/* ============================================
+   FEEDBACK DIDÁCTICO
+   ============================================ */
+.feedback{
+  margin-top:20px;
+  padding:16px 18px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.05);
+  animation:aparecer .35s ease;
+}
+
+.feedback.ok{border-color:rgba(0,217,163,.4); background:rgba(0,217,163,.1);}
+.feedback.mal{border-color:rgba(255,84,112,.4); background:rgba(255,84,112,.1);}
+
+#feedbackTitulo{
+  font-family:var(--font-display);
+  font-weight:700;
+  margin-bottom:6px;
+  font-size:15.5px;
+}
+
+#feedbackTexto{
+  font-size:14.5px;
+  line-height:1.5;
+  color:var(--fog-300);
+}
+
+/* ============================================
+   RESULTADOS
+   ============================================ */
+.trofeo{
+  width:76px;
+  height:76px;
+  display:block;
+  margin:0 auto 18px;
+  color:var(--gold-400);
+}
+
+#porcentaje{
+  font-family:var(--font-display);
+  font-size:76px;
+  font-weight:700;
+  text-align:center;
+  margin:14px 0;
+  color:var(--mint-400);
+}
+
+#mensaje{color:var(--fog-100); margin-bottom:8px;}
+
+#detalle{
+  text-align:center;
+  color:var(--fog-300);
+  font-size:14.5px;
+  margin-bottom:24px;
+}
+
+.desglose{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.fila-desglose{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13.5px;
+}
+
+.fila-desglose .nombreCat{
+  width:170px;
+  flex-shrink:0;
+  color:var(--fog-300);
+  font-family:var(--font-mono);
+  font-size:12px;
+}
+
+.fila-desglose .track{
+  flex:1;
+  height:8px;
+  background:rgba(255,255,255,.12);
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.fila-desglose .relleno{
+  height:100%;
+  background:linear-gradient(90deg, var(--blue-500), var(--mint-400));
+  border-radius:6px;
+}
+
+.fila-desglose .valorCat{
+  width:38px;
+  text-align:right;
+  font-family:var(--font-mono);
+  color:var(--fog-300);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media(max-width:640px){
+  .lista{grid-template-columns:1fr;}
+  .card, .cardPregunta{padding:26px;}
+  h1{font-size:26px;}
+  #porcentaje{font-size:58px;}
+  header{gap:10px;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
+
+</style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +586,19 @@
 <section id="inicio">
   <div class="card">
 
-    <img id="logoEmpresa" src="assets/logo.png" alt="Logo Skechers">
+    <div class="marca" aria-hidden="true">
+      <svg viewBox="0 0 48 48" class="marca-icono">
+        <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M13 30 L21 18 L27 26 L35 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
 
     <span class="eyebrow">Programa de inducción</span>
     <h1>Evaluación de Cultura Organizacional</h1>
     <h2>SKECHERS</h2>
 
     <p class="descripcion">
-      Esta evaluación mide tus conocimientos sobre los pilares de nuestra cultura.
+      Esta evaluación mide tus conocimientos sobre 8 pilares de nuestra cultura.
       Responde con calma: después de cada pregunta te explicamos la respuesta correcta.
     </p>
 
@@ -50,11 +620,12 @@
 
     <div class="campo">
       <label for="cm">CM</label>
-      <input type="text" id="cm" placeholder="Ej. CM-980452">
+      <input type="text" id="cm" placeholder="Ej. CM-0452">
     </div>
 
     <button id="btnComenzar" class="btnPrimario">🚀 Comenzar evaluación</button>
-    <p class="nota">12 preguntas · tiempo total 1:00</p>
+    <button id="btnVerRankingInicio" class="btnSecundario" type="button">🏅 Ver top evaluados</button>
+    <p class="nota">12 preguntas · tiempo total 10:00</p>
 
   </div>
 </section>
@@ -91,7 +662,13 @@
 <section id="resultado" style="display:none;">
   <div class="card">
 
-    <img src="assets/trofeo.png" class="trofeo" alt="Trofeo">
+    <svg viewBox="0 0 64 64" class="trofeo" aria-hidden="true">
+      <path d="M20 10h24v10c0 8-5 14-12 14s-12-6-12-14V10z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M20 14h-6c-2 0-4 2-4 4 0 6 4 10 10 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M44 14h6c2 0 4 2 4 4 0 6-4 10-10 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M32 34v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M22 50h20l-3-8H25l-3 8z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+    </svg>
 
     <h1>Evaluación finalizada</h1>
 
@@ -102,10 +679,139 @@
     <div class="desglose" id="desglose"></div>
 
     <button onclick="location.reload()" class="btnPrimario">Realizar nuevamente</button>
+    <button id="btnVerRankingResultado" class="btnSecundario" type="button">🏅 Ver top evaluados</button>
   </div>
 </section>
 
-<script src="js/data.js"></script>
-<script src="js/script.js"></script>
-</body>
-</html>
+<!-- TOP EVALUADOS -->
+<section id="ranking" style="display:none;">
+  <div class="card">
+
+    <span class="eyebrow">Tabla de posiciones</span>
+    <h1>Top evaluados</h1>
+    <p class="descripcion">Los mejores puntajes registrados hasta ahora.</p>
+
+    <div id="listaRanking" class="listaRanking">
+      <p class="cargandoRanking">Cargando ranking…</p>
+    </div>
+
+    <button id="btnVolverInicio" class="btnPrimario">Volver al inicio</button>
+  </div>
+</section>
+
+<script>
+const DATA = [
+
+  {
+    tipo: "opcion",
+    categoria: "Misión",
+    pregunta: "¿Cuál es la misión principal de Skechers?",
+    opciones: [
+      "Ofrecer productos cómodos, innovadores y de alta calidad",
+      "Vender únicamente zapatos deportivos",
+      "Ser la empresa más barata del mercado",
+      "Fabricar solo ropa"
+    ],
+    correcta: "Ofrecer productos cómodos, innovadores y de alta calidad",
+    explicacion: "Nuestra misión combina tres pilares: comodidad, innovación y calidad. No se trata solo de precio ni de un único tipo de producto."
+  },
+
+  {
+    tipo: "opcion",
+    categoria: "Cultura Organizacional",
+    pregunta: "¿Qué representa la Cultura Organizacional?",
+    opciones: [
+      "Los valores, comportamientos y forma de trabajar de la empresa",
+      "Las ventas del mes",
+      "El horario laboral",
+      "Las vacaciones"
+    ],
+    correcta: "Los valores, comportamientos y forma de trabajar de la empresa",
+    explicacion: "La cultura es el conjunto de valores y comportamientos compartidos que guían cómo trabajamos, más allá de cualquier cifra o beneficio puntual."
+  },
+
+  {
+    tipo: "texto",
+    categoria: "Atención al Cliente",
+    pregunta: "Completa: La atención al ________ es responsabilidad de todos.",
+    correcta: "cliente",
+    explicacion: "La atención al cliente no es tarea de un solo departamento: todos en la organización representamos la marca frente a quien compra."
+  },
+
+  {
+    tipo: "opcion",
+    categoria: "Competencias Esenciales",
+    pregunta: "Una competencia esencial es:",
+    opciones: [
+      "Orientación a resultados",
+      "Dormir durante el trabajo",
+      "Competir con los compañeros",
+      "Improvisar siempre"
+    ],
+    correcta: "Orientación a resultados",
+    explicacion: "La orientación a resultados —trabajar con foco en metas claras— es una de las competencias que se espera de todo el equipo."
+  },
+
+  {
+    tipo: "texto",
+    categoria: "Seguridad",
+    pregunta: "Completa: La seguridad comienza por la __________.",
+    correcta: "prevención",
+    explicacion: "Anticipar riesgos antes de que ocurran es la base de cualquier cultura de seguridad efectiva."
+  },
+
+  {
+    tipo: "opcion",
+    categoria: "Magia con una Sonrisa",
+    pregunta: "¿Qué significa 'Magia con una Sonrisa'?",
+    opciones: [
+      "Brindar una experiencia excepcional al cliente",
+      "Sonreír solamente cuando compra",
+      "Trabajar en silencio",
+      "No hablar con los clientes"
+    ],
+    correcta: "Brindar una experiencia excepcional al cliente",
+    explicacion: "Es nuestra forma de nombrar el ir más allá: crear momentos memorables para el cliente, compre o no compre."
+  },
+
+  {
+    tipo: "opcion",
+    categoria: "Seguridad",
+    pregunta: "¿Qué debe hacerse antes de iniciar una tarea?",
+    opciones: [
+      "Verificar las condiciones de seguridad",
+      "Correr",
+      "Improvisar",
+      "Ignorar los riesgos"
+    ],
+    correcta: "Verificar las condiciones de seguridad",
+    explicacion: "Revisar el entorno y las condiciones antes de actuar evita accidentes que luego son mucho más costosos que la pausa inicial."
+  },
+
+  {
+    tipo: "texto",
+    categoria: "Trabajo en Equipo",
+    pregunta: "Completa: El trabajo en ______ fortalece la organización.",
+    correcta: "equipo",
+    explicacion: "Ninguna meta importante se logra de forma aislada; el trabajo en equipo multiplica los resultados individuales."
+  },
+
+  {
+    tipo: "opcion",
+    categoria: "Valores",
+    pregunta: "¿Cuál es un valor importante dentro de Skechers?",
+    opciones: [
+      "Respeto",
+      "Desorden",
+      "Indiferencia",
+      "Competencia desleal"
+    ],
+    correcta: "Respeto",
+    explicacion: "El respeto hacia compañeros, clientes y la marca es uno de los valores centrales que sostiene la cultura organizacional."
+  },
+
+  {
+    tipo: "texto",
+    categoria: "Atención al Cliente",
+    pregunta: "Completa: El cliente siempre merece un trato con ________.",
+    correcta:
